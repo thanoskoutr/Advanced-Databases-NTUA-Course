@@ -1,1 +1,102 @@
 # Advanced-Databases-NTUA-Course
+
+## Movies Database
+`movies.csv` fields:
+```
+col[0] = ID
+col[1] = Title
+col[2] = Summary
+col[3] = Year
+col[4] = Duration
+col[5] = Cost
+col[6] = Revenue
+col[7] = Popularity
+```
+
+## After Reboot
+### Change hostnames
+On Master:
+```bash
+sudo hostname master
+```
+On Slave:
+```bash
+sudo hostname slave
+```
+
+### Start HDFS
+```bash
+start-dfs.sh
+```
+
+### Start Spark
+```bash
+start-all.sh
+```
+
+### Check status
+```bash
+jps && ssh slave jps
+```
+
+## Part 1
+
+### Task 1
+Download `movie_data`:
+```bash
+wget www.cslab.ntua.gr/courses/atds/movie_data.tar.gz
+```
+
+Untar the 3 `.csv` files:
+```bash
+tar -xvzf movie_data.tar.gz
+```
+
+Create a `movie_data` directory on hdfs:
+```
+hadoop fs -mkdir hdfs://master:9000/movie_data
+```
+
+Transfer the 3 `.csv` files to new directory:
+```
+hadoop fs -put movie_genres.csv movies.csv ratings.csv hdfs://master:9000/movie_data
+```
+
+List directory to see if files are transfered:
+```
+hadoop fs -ls hdfs://master:9000/movie_data
+```
+
+### Task 2
+Run `convert_csv_to_parquet.py` with Spark:
+```
+spark-submit convert_csv_to_parquet.py > log_convert_csv_to_parquet.txt 2>&1
+```
+Converts the 3 `.csv` to `.parquet` files and saves log file.
+
+
+### Task 3
+#### To-Do
+- [ ] Query 1:
+  - [x] RDD
+  - [ ] SQL with CSV (infer schema)
+  - [ ] SQL with Parquet
+- [ ] Query 2:
+  - [ ] RDD
+  - [ ] SQL with CSV (infer schema)
+  - [ ] SQL with Parquet
+- [ ] Query 3:
+  - [ ] RDD
+  - [ ] SQL with CSV (infer schema)
+  - [ ] SQL with Parquet
+- [ ] Query 4:
+  - [ ] RDD
+  - [ ] SQL with CSV (infer schema)
+  - [ ] SQL with Parquet
+- [ ] Query 5:
+  - [ ] RDD
+  - [ ] SQL with CSV (infer schema)
+  - [ ] SQL with Parquet
+
+
+## Part 2
