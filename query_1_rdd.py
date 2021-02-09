@@ -37,5 +37,5 @@ most_profit_by_year = rdd.reduceByKey(lambda x, y: x if x[0] > y[0] else y) \
 
 
 # Print Movies with the most profit by year
-for i in most_profit_by_year.take(100):
+for i in most_profit_by_year.collect():
     print("Year:", i[0], "Title:", i[1])
