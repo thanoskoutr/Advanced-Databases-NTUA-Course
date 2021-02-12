@@ -39,6 +39,16 @@ start-all.sh
 jps && ssh slave jps
 ```
 
+### Transfer files to Okeanos VM
+```bash
+rsync -v *.py user@83.212.79.226:/home/user/Project
+```
+
+### Submit queries to Spark
+```bash
+spark-submit file.py
+```
+
 ## Part 1
 
 ### Task 1
@@ -82,7 +92,7 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [ ] SQL with CSV (infer schema)
   - [ ] SQL with Parquet
 - [ ] Query 2:
-  - [ ] RDD
+  - [x] RDD
   - [ ] SQL with CSV (infer schema)
   - [ ] SQL with Parquet
 - [ ] Query 3:
