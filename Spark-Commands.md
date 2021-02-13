@@ -33,3 +33,14 @@ Start Pyspark:
 ```
 pyspark
 ```
+
+## Print RDDs
+Print RDDs:
+```python
+rdd.take(5)
+```
+
+Print `ResultIterable`:
+```python
+rdd.mapValues(list).take(5)
+```
