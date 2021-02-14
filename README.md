@@ -3,14 +3,14 @@
 ## Movies Database
 `movies.csv` fields:
 ```
-col[0] = ID
-col[1] = Title
-col[2] = Summary
-col[3] = Year
-col[4] = Duration
-col[5] = Cost
-col[6] = Revenue
-col[7] = Popularity
+col[0] = movieId
+col[1] = title
+col[2] = summary
+col[3] = timestamp
+col[4] = duration
+col[5] = cost
+col[6] = revenue
+col[7] = popularity
 ```
 
 ## After Reboot
