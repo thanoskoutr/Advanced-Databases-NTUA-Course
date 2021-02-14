@@ -13,7 +13,7 @@ def map_all_genres(tup):
     return ((genre, (rating, 1)) for genre in genres)
 
 
-spark = SparkSession.builder.appName("query_2").getOrCreate()
+spark = SparkSession.builder.appName("query_3").getOrCreate()
 
 sc = spark.sparkContext
 
@@ -39,7 +39,7 @@ genres_avg_rating_by_movieID = rdd_joined \
     .reduceByKey(lambda x, y: (x[0] + y[0], x[1], x[2] + y[2])) \
     .map(lambda tup: (tup[0], (tup[1][0]/tup[1][2], tup[1][1])))
 
-# Emits: (Genre, (Avg Rating, Count))
+# Emits: (Genre, Avg Rating, Count)
 avg_ratings_per_genre = genres_avg_rating_by_movieID \
     .flatMap(map_all_genres) \
     .reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1])) \
