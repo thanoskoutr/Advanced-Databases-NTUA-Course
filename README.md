@@ -108,5 +108,8 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [ ] SQL with CSV (infer schema)
   - [ ] SQL with Parquet
 
+- [ ] Combine SQL implementations:
+  - CSV
+  - Parquet
 
 ## Part 2
