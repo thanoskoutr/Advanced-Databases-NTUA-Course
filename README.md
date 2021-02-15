@@ -1,6 +1,6 @@
 # Advanced-Databases-NTUA-Course
 
-## Movies Database
+## Database Schema
 `movies.csv` fields:
 ```
 col[0] = movieId
@@ -11,6 +11,20 @@ col[4] = duration
 col[5] = cost
 col[6] = revenue
 col[7] = popularity
+```
+
+`movie_genres.csv` fields:
+```
+col[0] = movieId
+col[1] = genre
+```
+
+`movies_ratings.csv` fields:
+```
+col[0] = userId
+col[1] = movieId
+col[2] = rating
+col[3] = timestamp
 ```
 
 ## After Reboot
