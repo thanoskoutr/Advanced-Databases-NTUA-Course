@@ -39,9 +39,9 @@ start-all.sh
 jps && ssh slave jps
 ```
 
-### Transfer files to Okeanos VM
+### Transfer src files to Okeanos VM
 ```bash
-rsync -v *.py user@83.212.79.226:/home/user/Project
+rsync -rv src user@83.212.79.226:/home/user/Project
 ```
 
 ### Submit queries to Spark
