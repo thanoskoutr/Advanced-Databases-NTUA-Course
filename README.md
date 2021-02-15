@@ -89,8 +89,8 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
 #### To-Do
 - [ ] Query 1:
   - [x] RDD
-  - [ ] SQL with CSV (infer schema)
-  - [ ] SQL with Parquet
+  - [x] SQL with CSV (infer schema)
+  - [x] SQL with Parquet
 - [ ] Query 2:
   - [x] RDD
   - [ ] SQL with CSV (infer schema)
@@ -100,7 +100,7 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [ ] SQL with CSV (infer schema)
   - [ ] SQL with Parquet
 - [ ] Query 4:
-  - [ ] RDD
+  - [x] RDD
   - [ ] SQL with CSV (infer schema)
   - [ ] SQL with Parquet
 - [ ] Query 5:
