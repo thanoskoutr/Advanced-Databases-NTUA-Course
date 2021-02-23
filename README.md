@@ -101,14 +101,14 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
 
 ### Task 3
 #### To-Do
-- [ ] Query 1:
+- [x] Query 1:
   - [x] RDD
   - [x] SQL with CSV (infer schema)
   - [x] SQL with Parquet
-- [ ] Query 2:
+- [x] Query 2:
   - [x] RDD
-  - [ ] SQL with CSV (infer schema)
-  - [ ] SQL with Parquet
+  - [x] SQL with CSV (infer schema)
+  - [x] SQL with Parquet
 - [ ] Query 3:
   - [x] RDD
   - [ ] SQL with CSV (infer schema)
