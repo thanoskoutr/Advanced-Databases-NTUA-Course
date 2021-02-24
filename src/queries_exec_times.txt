@@ -1,0 +1,12 @@
+query_1_rdd.py: 6.974599599838257 seconds
+query_1_sql_csv.py: 24.837146997451782 seconds
+query_1_sql_parquet.py: 26.397393703460693 seconds
+query_2_rdd.py: 75.11650681495667 seconds
+query_2_sql_csv.py: 64.23672461509705 seconds
+query_2_sql_parquet.py: 28.762150287628174 seconds
+query_3_rdd.py: 108.31720399856567 seconds
+query_3_sql_csv.py: 60.05962085723877 seconds
+query_3_sql_parquet.py: 32.278013944625854 seconds
+query_4_rdd.py: 8.262017250061035 seconds
+query_4_sql_csv.py: 26.579431295394897 seconds
+query_4_sql_parquet.py: 24.23641085624695 seconds

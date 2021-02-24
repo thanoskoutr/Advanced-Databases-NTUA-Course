@@ -1,8 +1,13 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField
 from pyspark.sql.types import DoubleType, IntegerType, StringType, TimestampType
+import time
+import sys
 
 spark = SparkSession.builder.appName("query 1 - SQL, CSV").getOrCreate()
+
+# Start counting execution time
+start_time = time.time()
 
 # Create schema for Table
 schema = StructType([
@@ -50,3 +55,13 @@ df_q1 = spark.sql(q1_string)
 
 # Display all results in the Dataframe
 df_q1.show(df_q1.count(), truncate=False)
+
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))

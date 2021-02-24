@@ -1,6 +1,8 @@
 from pyspark.sql import SparkSession
 from io import StringIO
 import csv
+import time
+import sys
 
 
 def split_complex(x):
@@ -25,6 +27,9 @@ def return_5years_period(year):
 spark = SparkSession.builder.appName("query_4").getOrCreate()
 
 sc = spark.sparkContext
+
+# Start counting execution time
+start_time = time.time()
 
 # Emits: (MovieID, (Summary, Year))
 rdd_movies = sc.textFile("hdfs://master:9000/movie_data/movies.csv") \
@@ -56,3 +61,13 @@ avg_summary_len_by_5years = summary_by_5years \
 
 for tup in avg_summary_len_by_5years.collect():
     print(tup[0] + ":", round(tup[1], 2))
+
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))

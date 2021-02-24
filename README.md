@@ -54,8 +54,15 @@ jps && ssh slave jps
 ```
 
 ### Transfer src files to Okeanos VM
+From outside of `/src` on Local:
 ```bash
 rsync -rv src user@83.212.79.226:/home/user/Project
+```
+
+### Transfer log files from Okeanos VM
+From `/src` on Local:
+```bash
+rsync -rv user@83.212.79.226:/home/user/Project/src/{logs,queries_exec_times.txt} .
 ```
 
 ### Submit queries to Spark

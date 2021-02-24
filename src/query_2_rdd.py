@@ -1,6 +1,8 @@
 from pyspark.sql import SparkSession
 from io import StringIO
 import csv
+import time
+import sys
 
 
 def split_complex(x):
@@ -10,6 +12,9 @@ def split_complex(x):
 spark = SparkSession.builder.appName("query_2").getOrCreate()
 
 sc = spark.sparkContext
+
+# Start counting execution time
+start_time = time.time()
 
 # Emits: (User, Rating)
 rdd = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \
@@ -29,3 +34,12 @@ over3_ratings = over3_rating_per_user.count()
 result_percent = round((over3_ratings/all_ratings)*100, 2)
 
 print(str(result_percent) + "%")
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))

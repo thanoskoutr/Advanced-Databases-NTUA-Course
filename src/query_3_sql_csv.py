@@ -1,8 +1,13 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField
 from pyspark.sql.types import DoubleType, IntegerType, StringType
+import time
+import sys
 
 spark = SparkSession.builder.appName("query 3 - SQL, CSV").getOrCreate()
+
+# Start counting execution time
+start_time = time.time()
 
 # Create schema for Table movie_genres
 schema_movie_genres = StructType([
@@ -57,3 +62,13 @@ avg_ratings_per_genre = """
 """
 q3 = spark.sql(avg_ratings_per_genre)
 q3.show(q3.count(), truncate=False)
+
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))

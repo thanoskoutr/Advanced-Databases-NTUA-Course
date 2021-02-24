@@ -1,6 +1,11 @@
 from pyspark.sql import SparkSession
+import time
+import sys
 
 spark = SparkSession.builder.appName("query 2 - SQL, Parquet").getOrCreate()
+
+# Start counting execution time
+start_time = time.time()
 
 df_ratings = spark.read.parquet(
     "hdfs://master:9000/movie_data/ratings.parquet")
@@ -32,3 +37,12 @@ q2_string = """
 """
 df_q2 = spark.sql(q2_string)
 df_q2.show(df_q2.count(), truncate=False)
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))
