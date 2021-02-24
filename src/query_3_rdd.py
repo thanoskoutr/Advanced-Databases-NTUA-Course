@@ -30,7 +30,7 @@ rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres.csv")
     .groupByKey()
 # .mapValues(list) ## Only for pyspark
 
-# Emits: (MovieID , (Rating, [Genres]))
+# Emits: (MovieID, (Rating, [Genres]))
 rdd_joined = rdd_ratings.join(rdd_movie_genres)
 
 # Emits: (MovieID, (Avg Rating, [Genres]))
