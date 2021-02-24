@@ -113,10 +113,10 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [x] RDD
   - [x] SQL with CSV (infer schema)
   - [x] SQL with Parquet
-- [ ] Query 4:
+- [x] Query 4:
   - [x] RDD
-  - [ ] SQL with CSV (infer schema)
-  - [ ] SQL with Parquet
+  - [x] SQL with CSV (infer schema)
+  - [x] SQL with Parquet
 - [ ] Query 5:
   - [ ] RDD
   - [ ] SQL with CSV (infer schema)
