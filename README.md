@@ -133,4 +133,22 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - CSV
   - Parquet
 
+### Task 4
+Run `run_all_queries.sh` in order run all queries and get logs and execution times:
+```bash
+./run_all_queries.sh
+```
+Run `plot_queries_exec_times.py` in order to create the bar plot for each query's execution time:
+```bash
+./plot_queries_exec_times.py queries_exec_times.txt
+```
+
 ## Part 2
+
+### Task 1
+
+### Task 2
+
+### Task 3
+
+### Task 4
