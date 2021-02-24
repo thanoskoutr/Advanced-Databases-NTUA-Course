@@ -27,13 +27,13 @@ df_ratings.registerTempTable("ratings")
 
 # Count Distinct Users
 count_distinct_users = """
-                SELECT COUNT(DISTINCT(userId)) as usersCount
+                SELECT COUNT(DISTINCT(userId)) AS usersCount
                 FROM ratings
 """
 
 # Unique users with Avg Rating > 3
 over3_rating_users = """
-                SELECT COUNT(*) as usersCountOver3
+                SELECT COUNT(*) AS usersCountOver3
                 FROM (
                     SELECT COUNT(userId)
                     FROM ratings
@@ -42,7 +42,7 @@ over3_rating_users = """
 """
 
 q2_string = """
-                SELECT (usersCountOver3/usersCount)*100 as percentResult
+                SELECT (usersCountOver3/usersCount)*100 AS percentResult
                 FROM (""" + count_distinct_users + """) 
                     CROSS JOIN
                      (""" + over3_rating_users + """)
