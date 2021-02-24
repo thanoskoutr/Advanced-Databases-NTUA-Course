@@ -53,6 +53,7 @@ start-all.sh
 jps && ssh slave jps
 ```
 
+## Transfer files to/from VM
 ### Transfer src files to Okeanos VM
 From outside of `/src` on Local:
 ```bash
@@ -65,9 +66,22 @@ From `/src` on Local:
 rsync -rv user@83.212.79.226:/home/user/Project/src/{logs,queries_exec_times.txt} .
 ```
 
-### Submit queries to Spark
+## Submit queries to Spark
 ```bash
 spark-submit file.py
+```
+
+## Convert markdown to pdf
+### Install needed tools
+```bash
+pip3 install grip
+sudo apt install wkhtmltopdf
+```
+
+### Convert `.md` to .`pdf`
+```
+grip Report.md --export Report.html
+wkhtmltopdf Report.html Report.pdf
 ```
 
 ## Part 1
