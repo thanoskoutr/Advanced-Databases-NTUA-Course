@@ -4,6 +4,9 @@ import csv
 import time
 import sys
 
+# Start counting execution time
+start_time = time.time()
+
 
 def split_complex(x):
     return list(csv.reader(StringIO(x), delimiter=','))[0]
@@ -24,12 +27,9 @@ def return_5years_period(year):
         return "2015-2019"
 
 
-spark = SparkSession.builder.appName("query_4").getOrCreate()
+spark = SparkSession.builder.appName("query_4_rdd").getOrCreate()
 
 sc = spark.sparkContext
-
-# Start counting execution time
-start_time = time.time()
 
 # Emits: (MovieID, (Summary, Year))
 rdd_movies = sc.textFile("hdfs://master:9000/movie_data/movies.csv") \

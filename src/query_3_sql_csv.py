@@ -4,10 +4,10 @@ from pyspark.sql.types import DoubleType, IntegerType, StringType
 import time
 import sys
 
-spark = SparkSession.builder.appName("query 3 - SQL, CSV").getOrCreate()
-
 # Start counting execution time
 start_time = time.time()
+
+spark = SparkSession.builder.appName("query 3 - SQL, CSV").getOrCreate()
 
 # Create schema for Table movie_genres
 schema_movie_genres = StructType([

@@ -4,17 +4,17 @@ import csv
 import time
 import sys
 
+# Start counting execution time
+start_time = time.time()
+
 
 def split_complex(x):
     return list(csv.reader(StringIO(x), delimiter=','))[0]
 
 
-spark = SparkSession.builder.appName("query_2").getOrCreate()
+spark = SparkSession.builder.appName("query_2_rdd").getOrCreate()
 
 sc = spark.sparkContext
-
-# Start counting execution time
-start_time = time.time()
 
 # Emits: (User, Rating)
 rdd = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \

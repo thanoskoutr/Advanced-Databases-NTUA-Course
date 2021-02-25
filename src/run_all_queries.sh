@@ -4,7 +4,7 @@
 log_dir="logs"
 
 if [ ! -d "${log_dir}" ]; then
-	mkdir ${log_dir}
+    mkdir ${log_dir}
 fi
 
 # Delete executions times txt

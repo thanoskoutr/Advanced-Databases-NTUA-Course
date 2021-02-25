@@ -4,6 +4,9 @@ import csv
 import time
 import sys
 
+# Start counting execution time
+start_time = time.time()
+
 
 def split_complex(x):
     return list(csv.reader(StringIO(x), delimiter=','))[0]
@@ -15,12 +18,9 @@ def map_all_genres(tup):
     return ((genre, (rating, 1)) for genre in genres)
 
 
-spark = SparkSession.builder.appName("query_3").getOrCreate()
+spark = SparkSession.builder.appName("query_3_rdd").getOrCreate()
 
 sc = spark.sparkContext
-
-# Start counting execution time
-start_time = time.time()
 
 # Emits: (MovieID, Rating)
 rdd_ratings = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \

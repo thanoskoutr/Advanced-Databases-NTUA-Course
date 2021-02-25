@@ -3,6 +3,9 @@ from pyspark.sql.functions import udf
 import time
 import sys
 
+# Start counting execution time
+start_time = time.time()
+
 
 def return_5years_period(year):
     if (year <= 2004):
@@ -16,9 +19,6 @@ def return_5years_period(year):
 
 
 spark = SparkSession.builder.appName("query 4 - SQL, Parquet").getOrCreate()
-
-# Start counting execution time
-start_time = time.time()
 
 df_movies = spark.read.parquet(
     "hdfs://master:9000/movie_data/movies.parquet")

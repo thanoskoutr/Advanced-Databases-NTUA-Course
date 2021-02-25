@@ -2,10 +2,10 @@ from pyspark.sql import SparkSession
 import time
 import sys
 
-spark = SparkSession.builder.appName("query 2 - SQL, Parquet").getOrCreate()
-
 # Start counting execution time
 start_time = time.time()
+
+spark = SparkSession.builder.appName("query 2 - SQL, Parquet").getOrCreate()
 
 df_ratings = spark.read.parquet(
     "hdfs://master:9000/movie_data/ratings.parquet")

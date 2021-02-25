@@ -4,6 +4,9 @@ import csv
 import time
 import sys
 
+# Start counting execution time
+start_time = time.time()
+
 
 def split_complex(x):
     return list(csv.reader(StringIO(x), delimiter=','))[0]
@@ -20,12 +23,9 @@ def split_year(x):
     return x[3].split("-")[0]
 
 
-spark = SparkSession.builder.appName("query_1").getOrCreate()
+spark = SparkSession.builder.appName("query_1_rdd").getOrCreate()
 
 sc = spark.sparkContext
-
-# Start counting execution time
-start_time = time.time()
 
 # GroupByYear: Result (Year, Profit)
 rdd = sc.textFile("hdfs://master:9000/movie_data/movies.csv") \
