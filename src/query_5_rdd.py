@@ -53,7 +53,7 @@ def reduce_all_by_user(user1_dict, user2_dict):
             user1_dict[genre] = (NumRatings, MinPopul, MaxPopul,
                                  MinTitle, MaxTitle, MinRating, MaxRating)
             del user2_dict[genre]
-    merged_dict = {**user1_dict, **user2_dict}
+    merged_dict = {**user2_dict, **user1_dict}
     return merged_dict
 
 
@@ -111,4 +111,6 @@ rdd_all_by_genre = rdd_all_by_user \
     .flatMap(flatMap_all_genres) \
     .reduceByKey(lambda x, y: x if x[1][0] > y[1][0] else y) \
     .sortByKey() \
-    .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5]))
+    .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5], tup[1][1][1]))
+# Emits + MaxPopul
+# .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5]))
