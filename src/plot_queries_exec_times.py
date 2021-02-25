@@ -36,9 +36,10 @@ with open(exec_times_file) as fp:
             query_type = name_tokens[2]
             if query_type == 'sql':
                 query_format = name_tokens[3]
-                query_format = '_'.join([query_type, query_format])
+                query_format = '_'.join([query_type, query_format])\
+                    .split('.')[0]
             else:
-                query_format = query_type
+                query_format = query_type.split('.')[0]
 
             exec_times['Query'].append(query)
             exec_times['Type'].append(query_format)
