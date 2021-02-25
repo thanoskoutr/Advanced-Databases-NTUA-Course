@@ -6,7 +6,7 @@ spark = SparkSession.builder.appName("CSV2Parquet").getOrCreate()
 
 hdfs_path = "hdfs://master:9000/movie_data/"
 
-# Create schema for Table Movies
+# Create schema for Table movies
 schema_movies = StructType([
     StructField("movieId", IntegerType()),
     StructField("title", StringType()),
@@ -18,11 +18,13 @@ schema_movies = StructType([
     StructField("popularity", DoubleType()),
 ])
 
+# Create schema for Table movie_genres
 schema_movie_genres = StructType([
     StructField("movieId", IntegerType()),
     StructField("genre", StringType()),
 ])
 
+# Create schema for Table ratings
 schema_ratings = StructType([
     StructField("userId", IntegerType()),
     StructField("movieId", IntegerType()),

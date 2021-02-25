@@ -18,6 +18,12 @@ In order to execute the `ls` command in the home folder on HDFS, run:
 hadoop fs -ls hdfs://master:9000/.
 ```
 
+### Count lines of files in HDFS
+In order to count the lines (e.g. `movie_genres.csv`) of a file in the hdfs, run:
+```
+ hadoop fs -cat hdfs://master:9000/movie_data/movie_genres.csv | wc -l
+```
+
 ### Tranfer files to HDFS
 In order to tranfer a file e.g. `departments.csv` in our current directory
 to HDFS in the `examples` directory, run:

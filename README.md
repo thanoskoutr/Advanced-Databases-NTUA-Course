@@ -163,5 +163,15 @@ Run `plot_queries_exec_times.py` in order to create the bar plot for each query'
 ### Task 2
 
 ### Task 3
+#### Create `movie_genres_100.csv`
+Run `create_movie_genres_100.py` on VM, where the `movie_genres.csv` is:
+```bash
+./create_movie_genres_100_local.py movie_genres.csv
+```
+Takes the first 100 lines of `movie_genres.csv` and saves them to `movie_genres_100.csv` and saves it to hdfs.
+#### Count number of lines
+```bash
+hadoop fs -cat hdfs://master:9000/movie_data/movie_genres_100.csv | wc -l
+```
 
 ### Task 4
