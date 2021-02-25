@@ -80,8 +80,7 @@ sudo apt install wkhtmltopdf
 
 ### Convert `.md` to .`pdf`
 ```
-grip Report.md --export Report.html
-wkhtmltopdf Report.html Report.pdf
+grip Report.md --export Report.html && wkhtmltopdf Report.html Report.pdf
 ```
 
 ## Part 1
@@ -98,23 +97,23 @@ tar -xvzf movie_data.tar.gz
 ```
 
 Create a `movie_data` directory on hdfs:
-```
+```bash
 hadoop fs -mkdir hdfs://master:9000/movie_data
 ```
 
 Transfer the 3 `.csv` files to new directory:
-```
+```bash
 hadoop fs -put movie_genres.csv movies.csv ratings.csv hdfs://master:9000/movie_data
 ```
 
 List directory to see if files are transfered:
-```
+```bash
 hadoop fs -ls hdfs://master:9000/movie_data
 ```
 
 ### Task 2
 Run `convert_csv_to_parquet.py` with Spark:
-```
+```bash
 spark-submit convert_csv_to_parquet.py > log_convert_csv_to_parquet.txt 2>&1
 ```
 Converts the 3 `.csv` to `.parquet` files and saves log file.
