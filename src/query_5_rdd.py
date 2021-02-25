@@ -71,14 +71,14 @@ sc = spark.sparkContext
 # Emits: (MovieID, (Title, Popularity))
 rdd_movies = sc.textFile("hdfs://master:9000/movie_data/movies.csv") \
     .map(lambda line: split_complex(line)) \
-    .map(lambda line: (int(line[0]), (line[1], line[7])))
+    .map(lambda line: (int(line[0]), (line[1], float(line[7]))))
 
 # Emits: (MovieID, [Genres])
 rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres.csv") \
     .map(lambda line: split_complex(line)) \
     .map(lambda line: (int(line[0]), line[1])) \
-    .groupByKey() \
-    .mapValues(list)  # Only for pyspark
+    .groupByKey()
+    # .mapValues(list)  # Only for pyspark
 
 
 # Emits: (UserID, [(MovieID, Rating)])
@@ -111,6 +111,9 @@ rdd_all_by_genre = rdd_all_by_user \
     .flatMap(flatMap_all_genres) \
     .reduceByKey(lambda x, y: x if x[1][0] > y[1][0] else y) \
     .sortByKey() \
-    .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5], tup[1][1][1]))
+    .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5]))
 # Emits + MaxPopul
 # .map(lambda tup: (tup[0], tup[1][0], tup[1][1][0], tup[1][1][4], tup[1][1][6], tup[1][1][3], tup[1][1][5]))
+
+for i in rdd_all_by_genre.collect():
+    print(i)
