@@ -63,7 +63,7 @@ rsync -rv src user@83.212.79.226:/home/user/Project
 ### Transfer log files from Okeanos VM
 From `/src` on Local:
 ```bash
-rsync -rv user@83.212.79.226:/home/user/Project/src/{logs,queries_exec_times.txt} .
+rsync -rv user@83.212.79.226:/home/user/Project/src/{output,queries_exec_times.txt} .
 ```
 
 ## Submit queries to Spark

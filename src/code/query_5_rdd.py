@@ -78,7 +78,7 @@ rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres.csv")
     .map(lambda line: split_complex(line)) \
     .map(lambda line: (int(line[0]), line[1])) \
     .groupByKey()
-    # .mapValues(list)  # Only for pyspark
+# .mapValues(list)  # Only for pyspark
 
 
 # Emits: (UserID, [(MovieID, Rating)])
@@ -117,3 +117,13 @@ rdd_all_by_genre = rdd_all_by_user \
 
 for i in rdd_all_by_genre.collect():
     print(i)
+
+
+# Calculate and Print Execution time
+total_time = time.time() - start_time
+
+with open('queries_exec_times.txt', 'a+') as fp:
+    fp.write(sys.argv[0].split('/')[-1] + ': ' +
+             str(total_time) + ' seconds\n')
+
+print("--- %s seconds ---" % (time.time() - start_time))
