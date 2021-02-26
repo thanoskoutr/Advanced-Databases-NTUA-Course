@@ -10,3 +10,6 @@ query_3_sql_parquet.py: 38.21277666091919 seconds
 query_4_rdd.py: 11.107595443725586 seconds
 query_4_sql_csv.py: 28.467705249786377 seconds
 query_4_sql_parquet.py: 26.099650144577026 seconds
+query_5_rdd.py: 258 seconds
+query_5_sql_csv.py: 433.30455350875854 seconds
+query_5_sql_parquet.py: 339.60389375686646 seconds

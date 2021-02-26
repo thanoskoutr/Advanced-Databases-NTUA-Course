@@ -22,7 +22,7 @@ rdd_ratings = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \
     .map(lambda line: (int(line[1]), (int(line[0]), float(line[2]), line[3])))
 
 # Emits: (MovieID, Genre)
-rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres.csv") \
+rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres_100.csv") \
     .map(lambda line: split_complex(line)) \
     .map(lambda line: (int(line[0]), line[1]))
 

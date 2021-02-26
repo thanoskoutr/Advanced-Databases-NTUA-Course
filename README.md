@@ -142,10 +142,6 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [x] SQL with CSV (infer schema)
   - [x] SQL with Parquet
 
-- [ ] Combine SQL implementations:
-  - CSV
-  - Parquet
-
 ### Task 4
 Run `run_all_queries.sh` in order run all queries and get logs and execution times:
 ```bash
