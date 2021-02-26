@@ -66,7 +66,14 @@ spark-submit convert_csv_to_parquet.py > log_convert_csv_to_parquet.txt 2>&1
 
 
 ### Ζητούμενο 4
-Οι χρόνοι εκτέλεσεις ομαδοποιημένοι ανά ερώτημα, φαίνονται στο παρακάτω διάγραμμα:
+Στο Master VM τρέχουμε το `run_all_queries.sh` script, ώστε να τρέξει όλα τα ερωτήματα στο Spark και να αποθηκεύσει τα logs και τους χρόνους εκτέλεσης:
+```bash
+./run_all_queries.sh
+```
+Τοπικά, τρέχουμε το `plot_queries_exec_times.py` script, ώστε να δημιουργήσουμε το παρακάτω ραβδοδιάγραμμα με τους χρόνους εκτέλεσεις ομαδοποιημένους ανά ερώτημα:
+```bash
+./plot_queries_exec_times.py queries_exec_times.txt
+```
 
 ![Ραβδοδιάγραμμα-Χρόνων-Εκτέλεσης-Ερωτημάτων](src/queries_exec_times.png)
 
