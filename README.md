@@ -143,10 +143,14 @@ Converts the 3 `.csv` to `.parquet` files and saves log file.
   - [x] SQL with Parquet
 
 ### Task 4
+#### Run all queries
 Run `run_all_queries.sh` in order run all queries and get logs and execution times:
 ```bash
 ./run_all_queries.sh
 ```
+**Execution times in:** `queries_exec_times.txt`
+
+#### Create bar plot
 Run `plot_queries_exec_times.py` in order to create the bar plot for each query's execution time:
 ```bash
 ./plot_queries_exec_times.py queries_exec_times.txt
@@ -155,9 +159,9 @@ Run `plot_queries_exec_times.py` in order to create the bar plot for each query'
 ## Part 2
 
 ### Task 1
-
+Implementation of broadcast join in `code/join_broadcast.py`
 ### Task 2
-
+Implementation of repartition join in `code/join_repartition.py`
 ### Task 3
 #### Create `movie_genres_100.csv`
 Run `create_movie_genres_100.py` on VM, where the `movie_genres.csv` is:
@@ -169,5 +173,11 @@ Takes the first 100 lines of `movie_genres.csv` and saves them to `movie_genres_
 ```bash
 hadoop fs -cat hdfs://master:9000/movie_data/movie_genres_100.csv | wc -l
 ```
+#### Run all joins
+Run `run_all_joins.sh` in order run the 2 joins and get logs and execution times:
+```bash
+./run_all_joins.sh
+```
+**Execution times in:** `joins_exec_times.txt`
 
 ### Task 4
