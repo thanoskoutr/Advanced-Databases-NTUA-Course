@@ -112,14 +112,80 @@ spark-submit convert_csv_to_parquet.py > log_convert_csv_to_parquet.txt 2>&1
 `repartition join` στο RDD API (Map Reduce)
 **ΚΩΔΙΚΑΣ?**
 ### Ζητούμενο 3
-Απομονώστε 100 γραμμές του πίνακα `movie genres` σε ένα άλλο CSV. 
-Συγκρίνεται τους χρόνους εκτέλεσης των δύο υλοποιήσεων σας για την συνένωση των 100 γραμμών με τον πίνακα ratings και συγκρίνετε τα αποτελεσμάτων.
-Τι παρατηρείται? Γιατί?
-**ΕΞΗΓΗΣΗ**
+Στο Master VM τρέχουμε το `create_movie_genres_100.py` με παράμετρο το `movie_genres.csv`:
+```bash
+./create_movie_genres_100_local.py movie_genres.csv
+```
+Αυτό απομονώνει τις 100 πρώτες γραμμές του αρχείου `movie_genres.csv` και τις αποθηκεύει στο `movie_genres_100.csv` τοπικά καθώς και στο hdfs.
+
+Στο Master VM τρέχουμε το `run_all_joins.sh` script, ώστε να τρέξει τα δύο joins (`broadcast`, `repartition`) του πίνακα `movie_genres_100` και του `ratings` στο Spark και να αποθηκεύσει τα logs και τους χρόνους εκτέλεσης:
+```bash
+./run_all_joins.sh
+```
+
+Χρόνοι Εκτέλεσης των 2 joins:
+```bash
+join_broadcast.py: 74.14392161369324 seconds
+join_repartition.py: 1089.001785993576 seconds
+```
+
+**Τι παρατηρείται? Γιατί?**
 
 ### Ζητούμενο 4
-Χρησιμοποιώντας το script της επόμενης σελίδας, συμπληρώστε τις `<>` ώστε να μπορείτε να απενεργοποιήσετε την επιλογή του join από το βελτιστοποιητή. Εκτελέστε το query με και χωρίς βελτιστοποιητή και παρουσιάστε τα αποτελέσματα με την μορφή ενός ραβδογράμματος και το πλάνο εκτέλεσης που παράγει ο βελτιστοποιητής στην κάθε περίπτωση.
-Τι παρατηρείτε? Εξηγείστε.
-**ΕΞΗΓΗΣΗ**
 
-![Ραβδοδιάγραμμα-Χρόνων-Εκτέλεσης-Βελτιστοποιητής]()
+#### Απενεργοποίηση optimizer και εκτέλεση
+Χρησιμοποιώντας το script της εκφώνησης, συμπληρώσαμε τα path των parquet πινάκων στο hdfs, καθώς και την επιλογή για να μπορέσουμε να απενεργοποιήσετε την επιλογή του join από το βελτιστοποιητή. Αυτή ήταν η παρακάτω:
+```python
+spark.conf.set("spark.sql.autoBroadcastJoinThreshold", -1)
+```
+η οποία στην ουσία απενεργοποιεί το broadcasting, οπότε τα μόνα join που γίνονται είναι από την μεριά του reduce.
+
+Στο Master VM τρέχουμε το `run_all_optimizer.sh` script, ώστε να τρέξει τα 2 join μεταξύ των πινάκων `movie_genres` και `ratings` στο Spark, με ή χωρίς τον optimizer και να αποθηκεύσει τα logs και τους χρόνους εκτέλεσης:
+```bash
+./run_all_optimizer.sh
+```
+
+#### Πλάνα Εκτέλεσης
+Το πλάνο εκτέλεσης για το **join χωρίς τον optimizer**:
+```
+== Physical Plan ==
+*(6) SortMergeJoin [movieId#8], [movieId#1], Inner
+:- *(3) Sort [movieId#8 ASC NULLS FIRST], false, 0
+:  +- Exchange hashpartitioning(movieId#8, 200)
+:     +- *(2) Filter isnotnull(movieId#8)
+:        +- *(2) GlobalLimit 100
+:           +- Exchange SinglePartition
+:              +- *(1) LocalLimit 100
+:                 +- *(1) FileScan parquet [movieId#8,genre#9] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://master:9000/movie_data/movie_genres.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<movieId:int,genre:string>
++- *(5) Sort [movieId#1 ASC NULLS FIRST], false, 0
+   +- Exchange hashpartitioning(movieId#1, 200)
+      +- *(4) Project [userId#0, movieId#1, rating#2, timestamp#3]
+         +- *(4) Filter isnotnull(movieId#1)
+            +- *(4) FileScan parquet [userId#0,movieId#1,rating#2,timestamp#3] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://master:9000/movie_data/ratings.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(movieId)], ReadSchema: struct<userId:int,movieId:int,rating:double,timestamp:string>
+```
+Το πλάνο εκτέλεσης για το **join με τον optimizer**:
+```
+== Physical Plan ==
+*(3) BroadcastHashJoin [movieId#8], [movieId#1], Inner, BuildLeft
+:- BroadcastExchange HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)))
+:  +- *(2) Filter isnotnull(movieId#8)
+:     +- *(2) GlobalLimit 100
+:        +- Exchange SinglePartition
+:           +- *(1) LocalLimit 100
+:              +- *(1) FileScan parquet [movieId#8,genre#9] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://master:9000/movie_data/movie_genres.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<movieId:int,genre:string>
++- *(3) Project [userId#0, movieId#1, rating#2, timestamp#3]
+   +- *(3) Filter isnotnull(movieId#1)
+      +- *(3) FileScan parquet [userId#0,movieId#1,rating#2,timestamp#3] Batched: true, Format: Parquet, Location: InMemoryFileIndex[hdfs://master:9000/movie_data/ratings.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(movieId)], ReadSchema: struct<userId:int,movieId:int,rating:double,timestamp:string>
+
+```
+
+#### Ραβδοδιάγραμμα
+Τοπικά, τρέχουμε το `plot_optimizer_exec_times.py` script, ώστε να δημιουργήσουμε το παρακάτω ραβδοδιάγραμμα με τους χρόνους εκτέλεσεις για τα δύο joins με ή χωρίς τον optimizer:
+```bash
+./plot_optimizer_exec_times.py optimizer_exec_times.txt
+```
+
+![Ραβδοδιάγραμμα-Χρόνων-Εκτέλεσης-Βελτιστοποιητής](src/optimizer_exec_times.png)
+
+#### Σχολιασμός Χρόνων Εκτέλεσης για κάθε join
+**Τι παρατηρείτε? Εξηγείστε**

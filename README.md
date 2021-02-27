@@ -86,7 +86,7 @@ sudo apt install wkhtmltopdf
 ```
 
 ### Convert `.md` to .`pdf`
-```
+```bash
 grip Report.md --export Report.html && wkhtmltopdf Report.html Report.pdf
 ```
 
@@ -188,3 +188,15 @@ Run `run_all_joins.sh` in order run the 2 joins and get logs and execution times
 **Execution times in:** `joins_exec_times.txt`
 
 ### Task 4
+#### Run all queries
+Run `run_all_optimizer.sh` in order run 2 joins between `movie_genres` and `ratings` with and without the query optimizer:
+```bash
+./run_all_optimizer.sh
+```
+**Execution times in:** `optimizer_exec_times.txt`
+
+#### Create bar plot
+Run `plot_optimizer_exec_times.py` in order to create the bar plot for each query's execution time:
+```bash
+./plot_optimizer_exec_times.py optimizer_exec_times.txt
+```
