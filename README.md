@@ -65,6 +65,10 @@ From `/src` on Local:
 ```bash
 rsync -rv user@83.212.79.226:/home/user/Project/src/{output,queries_exec_times.txt} .
 ```
+```bash
+rsync -rv user@83.212.79.226:/home/user/Project/src/{output,joins_exec_times.txt} .
+```
+
 
 ## Submit queries to Spark
 ```bash
