@@ -1,0 +1,2 @@
+Time with choosing join type disabled is 23.0404 sec.
+Time with choosing join type enabled is 7.6889 sec.
