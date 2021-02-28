@@ -27,7 +27,7 @@ spark = SparkSession.builder.appName("query_1_rdd").getOrCreate()
 
 sc = spark.sparkContext
 
-# GroupByYear: Result (Year, Profit)
+# GroupByYear: Result (Year, (Profit, Title))
 rdd = sc.textFile("hdfs://master:9000/movie_data/movies.csv") \
         .map(lambda line: split_complex(line)) \
         .filter(lambda line: (split_year(line) != '')

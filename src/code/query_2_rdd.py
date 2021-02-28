@@ -16,7 +16,7 @@ spark = SparkSession.builder.appName("query_2_rdd").getOrCreate()
 
 sc = spark.sparkContext
 
-# Emits: (User, Rating)
+# Emits: (User, (Rating, 1))
 rdd = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \
         .map(lambda line: split_complex(line)) \
         .map(lambda line: (int(line[0]), (float(line[2]), 1)))

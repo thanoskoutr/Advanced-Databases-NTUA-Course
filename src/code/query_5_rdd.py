@@ -81,13 +81,6 @@ rdd_movie_genres = sc.textFile("hdfs://master:9000/movie_data/movie_genres.csv")
 # .mapValues(list)  # Only for pyspark
 
 
-# Emits: (UserID, [(MovieID, Rating)])
-# rdd_ratings = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \
-#     .map(lambda line: split_complex(line)) \
-#     .map(lambda line: (int(line[0]), (int(line[1]), float(line[2])))) \
-#     .groupByKey() \
-#     .mapValues(list)  # Only for pyspark
-
 # Emits: (MovieID, (UserID, Rating))
 rdd_ratings = sc.textFile("hdfs://master:9000/movie_data/ratings.csv") \
     .map(lambda line: split_complex(line)) \
