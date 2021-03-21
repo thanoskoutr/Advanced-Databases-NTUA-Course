@@ -17,6 +17,11 @@ def return_5years_period(year):
     elif (year <= 2019):
         return "2015-2019"
 
+def count_words(summary):
+    if summary == None:
+        return 0
+    else:
+        return len(summary.split(' '))
 
 spark = SparkSession.builder.appName("query 4 - SQL, Parquet").getOrCreate()
 
@@ -34,10 +39,11 @@ df_movie_genres.registerTempTable("movie_genres")
 
 
 spark.udf.register("return_5years_period", return_5years_period)
+spark.udf.register("count_words", count_words)
 
 
 movies_filtered = """
-        SELECT movieId, LENGTH(summary) AS summaryLength, YEAR(timestamp) AS year
+        SELECT movieId, count_words(summary) AS summaryLength, YEAR(timestamp) AS year
         FROM movies
         WHERE timestamp IS NOT NULL AND 
             YEAR(timestamp) >= 2000 AND 

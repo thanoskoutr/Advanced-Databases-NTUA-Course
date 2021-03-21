@@ -51,7 +51,7 @@ rdd_joined = rdd_movies.join(rdd_movie_genres)
 
 # Emits: ("20XX-20YY", (len(Summary), 1))
 summary_by_5years = rdd_joined \
-    .map(lambda line: (return_5years_period(line[1][0][1]), (len(line[1][0][0]), 1)))
+    .map(lambda line: (return_5years_period(line[1][0][1]), (len(line[1][0][0].split(' ')), 1)))
 
 # Result: ("20XX-20YY", Avg Summary)
 avg_summary_len_by_5years = summary_by_5years \
