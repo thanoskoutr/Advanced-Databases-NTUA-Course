@@ -1,4 +1,13 @@
 # Advanced-Databases-NTUA-Course
+A project for the Advanced Databases course at ECE NTUA, using Apache Spark to extract info from movie rating's big dataset.
+
+We are using the [MovieLens Dataset](https://grouplens.org/datasets/movielens/latest), containing over 27,000,000 ratings for 58,000 movies by 280,000 users. The dataset is saved on Apache HDFS in both CSV and Parquet format.
+
+We are using the Apache Spark framework with Python, utilizing both the older RDD API and the newer Dataframe API. We are also using Spark SQL, allowing us to run directly SQL queries to the distributed database.
+
+The main task of the project is to run queries on the dataset using the RDD API and Spark SQL and compare their execution times. The other task is to implement the Broadcast and Repartition Joins in the RDD API and compare their performance.
+
+[Report of the project in Greek](Report.md)
 
 ## Database Schema
 `movies.csv` fields:
